@@ -1,5 +1,5 @@
 import React from 'react'
-
+import '../css/ScoreTable.css'
 import { useTable } from 'react-table'
 
 function ScoreTable() {
@@ -44,7 +44,7 @@ function ScoreTable() {
             
             <tr>
               <th>Escalera</th>
-              <td>5</td>
+              <td id='escalera'>5</td>
             </tr>
             
             <tr>
@@ -53,8 +53,8 @@ function ScoreTable() {
             </tr>
             
             <tr>
-              <th>Poker</th>
-              <td>5</td>
+              <th>Poquer</th>
+              <td id='poker'>5</td>
             </tr>
             
             <tr>
