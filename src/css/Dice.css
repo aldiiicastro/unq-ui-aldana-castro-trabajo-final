@@ -1,8 +1,7 @@
-div.dice{
+.dice{
 	float:left;
 	width:55px;
-	background:#F5F5F5;
-	border:#999 1px solid;
+
 	padding:10px;
 	font-size:24px;
 	text-align:center;
@@ -10,6 +9,15 @@ div.dice{
 	border-radius: 10px;
 }
 
+.btnDice {
+	background-color:#F5F5F5;
+	border:#999 1px solid;
+}
+
+.selected {
+	background-color: rgb(124, 121, 121);
+	border:#999 1px solid;
+}
 
 div {
 	text-align: center;

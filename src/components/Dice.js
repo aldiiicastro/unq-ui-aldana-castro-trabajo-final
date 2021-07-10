@@ -8,15 +8,16 @@ const Dice = () => {
     const [hide, isHiden] = useState(true);
     const [amountDiceRoll, setAmountDiceRoll] = useState(0);
     const [maximusDiceRoll, setMaximusDiceRoll] = useState(false);
-    const [dice, setDice] = useState([])
-    const diceRepeat1 = (dice) => {
+    const dice = new Map()
+    const diceRepeat1 = () => {
         let count = {};
-        dice.forEach(function(i) { count[i] = (count[i]||0) + 1;});
+        console.log(dice);
+        dice.forEach(function(i) {  count[i] = (count[i]||0) + 1;});
         return count
     }
 
-    const keysObject = Object.keys(diceRepeat1(dice))
-    const valuesObject = Object.values(diceRepeat1(dice))
+    const keysObject = Object.keys(diceRepeat1())
+    const valuesObject = Object.values(diceRepeat1())
     const diceRepeat = (dice) => {
         let count = {};
         dice.forEach(function(i) { count[i] = (count[i]||0) + 1;});
@@ -34,7 +35,6 @@ const Dice = () => {
     
     const isStraight = (actualDice) => {
         if (isStraight1to5(actualDice) || isStraight2to6(actualDice)) {
-            console.log('Escalera')
             isHiden(false);
             isStraightToScore(straight + 1);
         }
@@ -42,7 +42,6 @@ const Dice = () => {
     
     const isFull = (actualDice) => {
         if (diceRepeat(actualDice).includes(3) && diceRepeat(actualDice).includes(2)) {
-            console.log('Full')
             isHiden(false);
             isFullToScore(full + 1);
         }
@@ -50,7 +49,6 @@ const Dice = () => {
 
     const isPoker = (actualDice) => {
         if (diceRepeat(actualDice).includes(4)) {
-            console.log('Poquer')
             isHiden(false);
             isPokerToScore(poker + 1);
         }
@@ -58,7 +56,6 @@ const Dice = () => {
 
     const isGenerala = (actualDice) => {
         if (diceRepeat(actualDice).includes(5)) {
-            console.log('Full')
             isHiden(false);
             isGeneralaToScore(generala + 1);
         }
@@ -67,7 +64,6 @@ const Dice = () => {
         event.preventDefault();
         if (document.getElementById(`${key}`).innerHTML == 0) {
             let total = key * value
-            console.log('key ' + key + 'value '+ value)
             document.getElementById(`${key}`).innerHTML = total
         }
         setAmountDiceRoll(0);
@@ -107,7 +103,11 @@ const Dice = () => {
         let d3 = Math.floor(Math.random() * 6) + 1;
         let d4 = Math.floor(Math.random() * 6) + 1;
         let d5 = Math.floor(Math.random() * 6) + 1;
-        setDice([d1,d2,d3,d4,d5])
+        dice.set(die1.id, d1)
+        dice.set(die2.id, d2)
+        dice.set(die3.id, d3)
+        dice.set(die4.id, d4)
+        dice.set(die5.id, d5)
         die1.innerHTML = d1;
         die2.innerHTML = d2;
         die3.innerHTML = d3;
@@ -124,17 +124,29 @@ const Dice = () => {
             setMaximusDiceRoll(true);
         }
     }
-
+    const diceToIgnore= new Map();
+    const ignoreDice = (e) => {
+        e.target.setAttribute('class','btn btn-light dice selected'); 
+        diceToIgnore.set(e.target.id, e.target.innerHTML);
+    }
+    const notIgnoreDice = (e)  => {
+        e.target.setAttribute('class','btn btn-light dice btnDice');
+        diceToIgnore.delete(e.target.id);
+    }
+    const handleClick = (e)=> {
+        !e.target.className.includes('selected') ? ignoreDice(e) : notIgnoreDice(e)
+    }
+    
     return(
         <div className='row row-cols-2'>
             <div className='col'>
-                <div id="die1" className="dice">1</div>
-                <div id="die2" className="dice">1</div>
-                <div id="die3" className="dice">1</div>
-                <div id="die4" className="dice">1</div>
-                <div id="die5" className="dice">1</div>
-            
-            
+                
+                <button id="die1" className='btn btn-light dice btnDice' onClick={(e) => handleClick(e)}>1</button>
+                <button id="die2" className='btn btn-light dice btnDice' onClick={(e) => handleClick(e)}>1</button>
+                <button id="die3" className='btn btn-light dice btnDice' onClick={(e) => handleClick(e)}>1</button>
+                <button id="die4" className='btn btn-light dice btnDice' onClick={(e) => handleClick(e)}>1</button>
+                <button id="die5" className='btn btn-light dice btnDice' onClick={(e) => handleClick(e)}>1</button>
+                
                 {hide && !maximusDiceRoll && <button type="button" className="btn btn-dark" onClick={ rollDice }>Tirar los dados</button>}
                 {!hide &&
                     <div>
