@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import ScoreTable from './ScoreTable'
 import '../css/Dice.css'
 const Dice = () => {
     const [straight, isStraightToScore] = useState(0);
@@ -8,23 +9,30 @@ const Dice = () => {
     const [hide, isHiden] = useState(true);
     const [amountDiceRoll, setAmountDiceRoll] = useState(0);
     const [maximusDiceRoll, setMaximusDiceRoll] = useState(false);
-    const dice = new Map()
-    const diceRepeat1 = () => {
-        let count = {};
-        console.log(dice);
-        dice.forEach(function(i) {  count[i] = (count[i]||0) + 1;});
-        return count
-    }
-
-    const keysObject = Object.keys(diceRepeat1())
-    const valuesObject = Object.values(diceRepeat1())
+    const [dice, setDice] = useState([])
+    const [total, setTotal] = useState(0)
+    const [actualGame, setActualGame] = useState('')
+    
     const diceRepeat = (dice) => {
         let count = {};
         dice.forEach(function(i) { count[i] = (count[i]||0) + 1;});
-        return Object.values(count)
-    }
+        return count
+    } 
     
-
+    const keysObject = Object.keys(diceRepeat(dice))
+    const valuesObject = Object.values(diceRepeat(dice))
+    
+    const deleteSelectedDice = () => {
+        let diceToNotRoll = [...document.getElementsByClassName("selected")];
+        diceToNotRoll.forEach((die) => {die.setAttribute('class','btn btn-light dice btnDice');})
+    }
+    const initializeAll = () => {
+        isHiden(true);
+        setAmountDiceRoll(0);
+        setMaximusDiceRoll(false);
+        deleteSelectedDice()
+        setActualGame('')
+    }
     const isStraight1to5 = (actualDice) =>  {
         return actualDice.includes(1) && actualDice.includes(2) && actualDice.includes(3) && actualDice.includes(4) && actualDice.includes(5)
     }
@@ -34,87 +42,102 @@ const Dice = () => {
     }
     
     const isStraight = (actualDice) => {
-        if (isStraight1to5(actualDice) || isStraight2to6(actualDice)) {
+        let dice = Object.values(diceRepeat(actualDice))
+        if (isStraight1to5(dice) || isStraight2to6(dice)) {
             isHiden(false);
             isStraightToScore(straight + 1);
-        }
+            setActualGame('Escalera')
+        } 
     }
     
     const isFull = (actualDice) => {
-        if (diceRepeat(actualDice).includes(3) && diceRepeat(actualDice).includes(2)) {
+        let dice = Object.values(diceRepeat(actualDice))
+        if (dice.includes(3) && dice.includes(2)) {
             isHiden(false);
             isFullToScore(full + 1);
-        }
+            setActualGame('Full')
+        } 
     }
 
     const isPoker = (actualDice) => {
-        if (diceRepeat(actualDice).includes(4)) {
+        let dice = Object.values(diceRepeat(actualDice))
+        if (dice.includes(4)) {
             isHiden(false);
             isPokerToScore(poker + 1);
+            setActualGame('Poquer')
         }
     }
 
     const isGenerala = (actualDice) => {
-        if (diceRepeat(actualDice).includes(5)) {
+        let dice = Object.values(diceRepeat(actualDice))
+        if (dice.includes(5)) {
             isHiden(false);
             isGeneralaToScore(generala + 1);
+            setActualGame('Generala')
         }
     }
+    
     const scoringNumber = (key,value, event) =>{
-        event.preventDefault();
         if (document.getElementById(`${key}`).innerHTML == 0) {
-            let total = key * value
-            document.getElementById(`${key}`).innerHTML = total
+            let score = key * value
+            document.getElementById(`${key}`).innerHTML = score
+            setTotal(total + score)
+            initializeAll()
+        }  else {
+            alert('La jugada que intenta guardar ya fue realizada, vuelva a tirar o anote otra jugada')
         }
-        setAmountDiceRoll(0);
-        setMaximusDiceRoll(false);
+        
     }
+
     const scoring = () => {
-        if (straight === 1 && document.getElementById("straight").innerHTML !== 20) {
-            document.getElementById("straight").innerHTML = 20
+        if (straight === 1 && document.getElementById("escalera").innerHTML !== 20 && document.getElementById("escalera").innerHTML !== 'X') {
+            document.getElementById("escalera").innerHTML = 20
+            setTotal(total + 20)
             isStraightToScore(2)
+            initializeAll()
         }
-        if (full === 1 && document.getElementById("full").innerHTML !== 30) {
+        else if (full === 1 && document.getElementById("full").innerHTML !== 30 && document.getElementById("full").innerHTML !== 'X') {
             document.getElementById("full").innerHTML = 30
+            setTotal(total + 30)
             isFullToScore(2)
+            initializeAll()
         }
-        if (poker === 1 && document.getElementById("poquer").innerHTML !== 40){
+        else if (poker === 1 && document.getElementById("poquer").innerHTML !== 40 && document.getElementById("poquer").innerHTML !== 'X'){
             document.getElementById("poquer").innerHTML = 40
+            setTotal(total + 40)
             isPokerToScore(2)
+            initializeAll()
         }
-        if (generala === 1 && document.getElementById("generala").innerHTML !== 50) {
+        else if (generala === 1 && document.getElementById("generala").innerHTML !== 50 && document.getElementById("generala").innerHTML !== 'X') {
             document.getElementById("generala").innerHTML = 50
+            setTotal(total + 50)
+            initializeAll()
         }
-        isHiden(true);
-        setAmountDiceRoll(0);
-        setMaximusDiceRoll(false);
+        else if (generala === 2 && document.getElementById("doble").innerHTML !== 100 && document.getElementById("doble").innerHTML !== 'X') {
+            document.getElementById("doble").innerHTML = 100
+            setTotal(total + 100)
+            isGenerala(3)
+            initializeAll()
+        } else {
+            alert('La jugada que intenta guardar ya fue realizada, vuelva a tirar o anote otra jugada')
+        }
+        
     }
 
    const rollDice = () => {
         isHiden(true);
-        let die1 = document.getElementById("die1");
-        let die2 = document.getElementById("die2");
-        let die3 = document.getElementById("die3");
-        let die4 = document.getElementById("die4");
-        let die5 = document.getElementById("die5");
-        // let status = document.getElementById("status");
-        let d1 = Math.floor(Math.random() * 6) + 1;
-        let d2 = Math.floor(Math.random() * 6) + 1;
-        let d3 = Math.floor(Math.random() * 6) + 1;
-        let d4 = Math.floor(Math.random() * 6) + 1;
-        let d5 = Math.floor(Math.random() * 6) + 1;
-        dice.set(die1.id, d1)
-        dice.set(die2.id, d2)
-        dice.set(die3.id, d3)
-        dice.set(die4.id, d4)
-        dice.set(die5.id, d5)
-        die1.innerHTML = d1;
-        die2.innerHTML = d2;
-        die3.innerHTML = d3;
-        die4.innerHTML = d4;
-        die5.innerHTML = d5;
-        let actualDice = [d1,d2,d3,d4,d5]
+        let actualDice = []
+        let diceToRoll = [...document.getElementsByClassName("btnDice")]
+        diceToRoll.forEach((die) => {
+            die.innerHTML = Math.floor(Math.random() * 6) + 1;
+            actualDice.push(die.innerHTML)
+        })
+        let diceToNotRoll = [...document.getElementsByClassName("selected")]
+        diceToNotRoll.forEach((die) => {
+            actualDice.push(die.innerHTML)
+        })
         
+        setDice(actualDice)
         isPoker(actualDice);
         isFull(actualDice);
         isStraight(actualDice);
@@ -124,25 +147,39 @@ const Dice = () => {
             setMaximusDiceRoll(true);
         }
     }
-    const diceToIgnore= new Map();
+    
     const ignoreDice = (e) => {
+        amountDiceRoll === 0 ? alert('Debe hacer una primera tirada') :
         e.target.setAttribute('class','btn btn-light dice selected'); 
-        diceToIgnore.set(e.target.id, e.target.innerHTML);
     }
+
     const notIgnoreDice = (e)  => {
         e.target.setAttribute('class','btn btn-light dice btnDice');
-        diceToIgnore.delete(e.target.id);
     }
+
     const handleClick = (e)=> {
         !e.target.className.includes('selected') ? ignoreDice(e) : notIgnoreDice(e)
     }
+
+    const crossOutAPlay = (e, scoreToCrossOut) => {
+        console.log(scoreToCrossOut)
+        scoreToCrossOut.innerHTML = 'X'
+        initializeAll()
+    }
     
     return(
+        <div className='container'>
+        <div className='row'>
+          <div className='col-md-4'>
+              <ScoreTable total={total}/>
+          </div>
+          <div className='col'>
+          
         <div className='row row-cols-2'>
             <div className='col'>
                 
-                <button id="die1" className='btn btn-light dice btnDice' onClick={(e) => handleClick(e)}>1</button>
-                <button id="die2" className='btn btn-light dice btnDice' onClick={(e) => handleClick(e)}>1</button>
+                <button id="die" className='btn btn-light dice btnDice' onClick={(e) => handleClick(e)}>1</button>
+                <button id="die" className='btn btn-light dice btnDice' onClick={(e) => handleClick(e)}>1</button>
                 <button id="die3" className='btn btn-light dice btnDice' onClick={(e) => handleClick(e)}>1</button>
                 <button id="die4" className='btn btn-light dice btnDice' onClick={(e) => handleClick(e)}>1</button>
                 <button id="die5" className='btn btn-light dice btnDice' onClick={(e) => handleClick(e)}>1</button>
@@ -151,24 +188,37 @@ const Dice = () => {
                 {!hide &&
                     <div>
                         <button className="btn btn-dark" onClick={rollDice}>Volver a tirar</button>
-                        <button className="btn btn-dark buttonScore" onClick={scoring}>Anotar juego</button>
+                        <button className="btn btn-dark buttonScore" onClick={scoring}>Anotar juego {actualGame}</button>
                     </div>
                 }
                 {
                     maximusDiceRoll && 
                     <div>
-                        <p>Debes anotar para volver a tirar</p>
-                    
+                        {actualGame === '' && <p>Debes anotar para volver a tirar</p>}
+                        {console.log(dice)}
                         {keysObject.map((key, index) => {
                             return (
                             <button className="btn btn-dark buttonScore" key={index} onClick={(event) => scoringNumber(key, valuesObject[index], event)}>Anotar {valuesObject[index] * key}  al {key} </button>
                             )
-                        }) }
+                        }) 
+                        }
+                        <div>
+                        {[...document.getElementsByClassName('score')].map((score) => {
+                            return (score.innerHTML == 0 && 
+                                    <button className="btn btn-dark buttonScore" onClick={(event) => crossOutAPlay(event, score)}>Tachar {score.id} </button>
+                                    )
+                                }
+                            )
+                        }
+                       </div>
                     </div>
                 }
             </div>
             <div className='col'></div>
         </div>
+          </div>
+        </div>
+      </div>
     );
 };
 
