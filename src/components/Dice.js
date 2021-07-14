@@ -144,7 +144,7 @@ const Dice = (props) => {
                 }
             </div>
             <div className='col'>
-                <p className='infoBtn'>Seleccione los dados que no quieren que sean tirados de nuevo</p>
+                <p className='infoBtn'>Seleccione los dados que no quiere que sean tirados de nuevo</p>
                 <p className='info'>Total: {total}</p>
                 <p className='info'>Tiros restantes: {3 - amountDiceRoll}</p>
             </div>
