@@ -1,9 +1,9 @@
 import React from 'react'
 import '../css/ScoreTable.css'
 
-const ScoreTable = (props) => {
+const ScoreTable = () => {
   return (
-    <table>
+    <table className="table-fill">
       <thead>
           <tr>
               <th>Juego</th>
@@ -66,12 +66,6 @@ const ScoreTable = (props) => {
               <td id='doble' className='score'>0</td>
             </tr>
       </tbody>
-      <tfoot>
-        <tr>
-          <th>Total</th>
-          <th>{props.total}</th>
-        </tr>
-      </tfoot>
     </table>
   )
 }

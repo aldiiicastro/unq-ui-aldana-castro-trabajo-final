@@ -1,13 +1,30 @@
 .dice{
 	float:left;
 	width:55px;
-	background:#F5F5F5;
+	height: 55px;
+	background-size: 65px;
 	border:#999 1px solid;
 	padding:10px;
 	font-size:24px;
 	text-align:center;
 	margin:15px 5px 5px 5px;
 	border-radius: 10px;
+}
+
+.info {
+	text-align: right;
+	color: whitesmoke;
+	font-size: 25px;	
+}
+
+.infoBtn {
+	text-align: right;
+	color: whitesmoke;
+	font-size: 20px;
+}
+.scoringText {
+	color: whitesmoke;
+	font-size: 20px;	
 }
 
 .tachado {
@@ -29,5 +46,5 @@ div {
 }
 
 .buttonScore {
-	margin-left: 5px;
+	margin:1px 5px 5px 5px;	
 }
