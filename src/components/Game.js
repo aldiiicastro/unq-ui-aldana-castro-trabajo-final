@@ -53,27 +53,22 @@ const Game = () => {
         if (isStraight1to5(actualDice) || isStraight2to6(actualDice)) {
            play = 'escalera';
            score = 30
-           {console.log(play)}
         } 
         if (dice.includes(3) && dice.includes(2)) {    
             play = 'full';
             score = 30
-            {console.log(play)}
         } 
         if (dice.includes(4)) {
             play = 'poquer';
             score = 40;
-            {console.log(play)}
         }
-        if (dice.includes(5) && document.getElementById('generala').innerHTML !== score.toString()) {
+        if (dice.includes(5) && document.getElementById('generala').innerHTML !== '50') {
             play = 'generala';
             score = 50;
-            {console.log(play)}
         } 
         if(dice.includes(5) && document.getElementById('generala').innerHTML === '50') {
             play = 'doble'
             score = 100;
-            {console.log(play)}
         }
         setActualGame(play)
         setScoreMove(score)
@@ -103,7 +98,6 @@ const Game = () => {
         })
         let diceToNotRoll = [...document.getElementsByClassName("selected")]
         diceToNotRoll.forEach((die) => {
-            console.log(die)
             actualDice.push(die.innerHTML)
         })
         checkGames(actualDice)

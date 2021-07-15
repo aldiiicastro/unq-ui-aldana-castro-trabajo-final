@@ -2,7 +2,6 @@ const scoreMove = (playName, score, total, setTotal, movesRealized, initializeAl
             if (document.getElementById(playName).innerHTML !== score.toString() && document.getElementById(playName).innerHTML !== 'X') {
                 document.getElementById(playName).innerHTML = score.toString()
                 document.getElementById(playName).classList.remove('score')
-                console.log(movesRealized)
                 setMovesRealized(movesRealized + 1)
                 setTotal(total + score)
                 initializeAll()

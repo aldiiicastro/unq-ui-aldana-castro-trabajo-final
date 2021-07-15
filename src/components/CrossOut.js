@@ -3,7 +3,6 @@ import Context from './Context';
 const CrossOut = (props) => {
     const crossOutAPlay = (e, scoreToCrossOut, movesRealized) => {
         scoreToCrossOut.innerHTML = 'X'
-        console.log('tacho ' + (movesRealized + 1))
         props.setMovesRealized(movesRealized + 1)
         props.initializeAll()
         if ((movesRealized + 1) === 11) {

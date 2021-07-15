@@ -12,11 +12,9 @@ const ScoringButtons = (props) => {
         if (toScore.innerHTML == 0) {
             let score = key * value
             toScore.innerHTML = score
-            console.log(toScore)
             props.setTotal(total + score)
             props.initializeAll()
             props.setMovesRealized(movesRealized + 1)
-            console.log('anoto ' + (movesRealized + 1))
             if ((movesRealized + 1) === 11) {
                 props.setGameFinished(true)
             }

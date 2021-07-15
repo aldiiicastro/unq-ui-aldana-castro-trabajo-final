@@ -4,4 +4,5 @@ const diceRepeat = (dice) => {
     return count
 } 
 
-export default {diceRepeat};
+const toExport = {diceRepeat}
+export default toExport;
