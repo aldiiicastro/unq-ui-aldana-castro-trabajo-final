@@ -1,9 +1,9 @@
 import './App.css';
-import Dice from './components/Dice'
+import Game from './components/Game'
 
 function App() {
   return (
-    <Dice amountOfDice={[1,1,1,1,1]}/>
+    <Game/>
   );
 }
 

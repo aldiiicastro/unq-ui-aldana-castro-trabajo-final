@@ -5,10 +5,49 @@
 	background-size: 65px;
 	border:#999 1px solid;
 	padding:10px;
-	font-size:24px;
+	font-size:0px;
 	text-align:center;
 	margin:15px 5px 5px 5px;
 	border-radius: 10px;
+	background-position: center;
+}
+
+.die1 {
+	background-image: url('C:\Users\aldan\Documents\Generala\unq-ui-aldana-castro-trabajo-final\src\dados\dado1.png');
+}
+
+.die2 {
+	background-image: url('C:\Users\aldan\Documents\Generala\unq-ui-aldana-castro-trabajo-final\src\dados\dado2.png');
+}
+.die3 {
+	background-image: url('C:\Users\aldan\Documents\Generala\unq-ui-aldana-castro-trabajo-final\src\dados\dado3.png');
+}
+.die4 {
+	background-image: url('C:\Users\aldan\Documents\Generala\unq-ui-aldana-castro-trabajo-final\src\dados\dado4.png');
+}
+.die5 {
+	background-image: url('C:\Users\aldan\Documents\Generala\unq-ui-aldana-castro-trabajo-final\src\dados\dado5.png');
+}
+.die6 {
+	background-image: url('C:\Users\aldan\Documents\Generala\unq-ui-aldana-castro-trabajo-final\src\dados\dado6.png');
+}
+.die1selected {
+	background-image: url('C:\Users\aldan\Documents\Generala\unq-ui-aldana-castro-trabajo-final\src\dados\dado1S.png');
+}
+.die2selected {
+	background-image: url('C:\Users\aldan\Documents\Generala\unq-ui-aldana-castro-trabajo-final\src\dados\dado2S.png');
+}
+.die3selected {
+	background-image: url('C:\Users\aldan\Documents\Generala\unq-ui-aldana-castro-trabajo-final\src\dados\dado3S.png');
+}
+.die4selected {
+	background-image: url('C:\Users\aldan\Documents\Generala\unq-ui-aldana-castro-trabajo-final\src\dados\dado4S.png');
+}
+.die5selected {
+	background-image: url('C:\Users\aldan\Documents\Generala\unq-ui-aldana-castro-trabajo-final\src\dados\dado5S.png');
+}
+.die6selected {
+	background-image: url('C:\Users\aldan\Documents\Generala\unq-ui-aldana-castro-trabajo-final\src\dados\dado6S.png');
 }
 
 .info {
@@ -22,13 +61,10 @@
 	color: whitesmoke;
 	font-size: 20px;
 }
+
 .scoringText {
 	color: whitesmoke;
 	font-size: 20px;	
-}
-
-.tachado {
-    text-decoration: line-through;
 }
 
 .btnDice {

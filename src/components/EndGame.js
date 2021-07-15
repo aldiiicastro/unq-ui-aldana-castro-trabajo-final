@@ -7,6 +7,7 @@ const EndGame = (props) => {
   return(
     <div className='endDiv'>
       <p className='end'>Termino el juego</p>
+      <p className='end'>Su puntación fue de: {props.total}</p>
       <button className="btn btn-dark buttonScore" onClick={handleClick}>Volver a jugar</button>
     </div>
   )

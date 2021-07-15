@@ -16,6 +16,7 @@ const ScoringButtons = (props) => {
             props.setTotal(total + score)
             props.initializeAll()
             props.setMovesRealized(movesRealized + 1)
+            console.log('anoto ' + (movesRealized + 1))
             if ((movesRealized + 1) === 11) {
                 props.setGameFinished(true)
             }
